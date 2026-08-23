@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Humanity First - Hero-Prototyp</title>
+<link rel="stylesheet" href="src/hf-dot-map.css">
+<style>body { margin: 0; background: #f4f7fa; }</style>
+</head>
+<body>
+
+<section class="hf-hero">
+  <div class="hf-hero__head">
+    <p class="hf-hero__eyebrow" data-mark>Humanity First Deutschland</p>
+    <h1 class="hf-hero__title">Wir sind dort, wo <em>Hilfe ankommt</em>.</h1>
+    <div class="hf-actions">
+      <a class="hf-btn hf-btn--primary" href="#wirkung">Unsere Wirkung entdecken</a>
+      <a class="hf-btn hf-btn--ghost" href="#helfen">Jetzt helfen</a>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <div class="hf-footer">
+    <div class="hf-stats">
+      <div class="hf-stat">
+        <span class="hf-stat__value" data-stat="beneficiaries">0</span>
+        <span class="hf-stat__label">Menschen erreicht</span>
+      </div>
+      <div class="hf-stat">
+        <span class="hf-stat__value" data-stat="countries">0</span>
+        <span class="hf-stat__label">Laender</span>
+      </div>
+      <div class="hf-stat">
+        <span class="hf-stat__value" data-stat="projects">0</span>
+        <span class="hf-stat__label">Projekte</span>
+      </div>
+    </div>
+
+    <div class="hf-legend">
+      <span>weniger</span>
+      <span class="hf-legend__ramp" aria-hidden="true"></span>
+      <span>mehr Menschen erreicht</span>
+      <span class="hf-legend__accent">Schwerpunkt</span>
+    </div>
+  </div>
+
+  <div class="hf-panel" id="hf-panel" hidden role="dialog" aria-modal="false" aria-labelledby="hf-panel-title">
+    <button class="hf-panel__close" type="button" aria-label="Schliessen">&times;</button>
+    <div class="hf-panel__inner"></div>
+  </div>
+
+  <button class="hf-table-toggle" aria-expanded="false" aria-controls="hf-table">
+    Alle Standorte als Tabelle anzeigen
+  </button>
+  <div class="hf-table-wrap" id="hf-table" hidden></div>
+
+  <p class="hf-note">
+    Prototyp. Die Zahlen sind Platzhalter aus <code>data/locations.json</code> und muessen
+    vor dem Livegang durch die echten Programmzahlen ersetzt werden.
+  </p>
+</section>
+
+<script type="module">
+import { HFDotMap } from './src/hf-dot-map.js';
+import { ICONS } from './src/icons.js';
+
+// Dachmarke ins Badge
+document.querySelector('[data-mark]').insertAdjacentHTML('afterbegin', ICONS.mark);
+
+const data = await fetch('./data/locations.json').then((r) => r.json());
+const root = document.getElementById('map');
+const map = new HFDotMap(root, data);
+window.hfmap = map;   // Debug-Handle, fuer die Produktion entbehrlich
+
+/* ---------- Programmfilter kommt von den Bubbles auf der Karte ---------- */
+root.addEventListener('hfmap:program', (e) => {
+  const active = map.setProgram(e.detail);
+  for (const b of root.querySelectorAll('.hfmap__bubble')) {
+    b.setAttribute('aria-pressed', String(b.dataset.program === active));
+  }
+});
+
+/* ---------- Detail-Panel: Zahlen, Programme, Fotogitter ---------- */
+const panel = document.getElementById('hf-panel');
+const panelInner = panel.querySelector('.hf-panel__inner');
+const programById = new Map(data.programs.map((p) => [p.id, p]));
+const fmt = (n) => n.toLocaleString('de-DE');
+
+function openPanel(loc, site) {
+  const acts = (site ? site.acts : loc.activities)
+    .slice()
+    .sort((a, b) => b.beneficiaries - a.beneficiaries);
+  const total = acts.reduce((s, a) => s + a.beneficiaries, 0);
+  const projects = acts.reduce((s, a) => s + (a.projects || 0), 0);
+  const photos = loc.photos || [];
+
+  panelInner.innerHTML = `
+    <div class="hf-panel__head">
+      <h2 class="hf-panel__title" id="hf-panel-title">${loc.name}</h2>
+      <div class="hf-panel__figures">
+        <div class="hf-panel__figure"><b>${fmt(total)}</b><span>Menschen erreicht</span></div>
+        <div class="hf-panel__figure"><b>${fmt(projects)}</b><span>Projekte</span></div>
+      </div>
+    </div>
+    <ul class="hf-panel__programs">
+      ${acts.map((a) => {
+        const p = programById.get(a.program);
+        return `<li style="--chip-color:${p.color}">${ICONS[p.icon] || ''}
+          <span>${p.name}</span> <b>${fmt(a.beneficiaries)}</b></li>`;
+      }).join('')}
+    </ul>
+    ${photos.length
+      ? `<div class="hf-masonry">${photos.map((ph) => `
+          <figure>
+            <img src="${ph.src}" alt="${ph.alt}" loading="lazy" decoding="async">
+            <figcaption>${ph.caption}</figcaption>
+          </figure>`).join('')}</div>`
+      : '<p class="hf-panel__empty">Fuer dieses Land liegen noch keine Fotos vor.</p>'}
+    <p class="hf-panel__hint">Fotos: Humanity First. Spaeter verlinken wir hier auf die
+      Projekt- und Programmseiten.</p>`;
+
+  panel.hidden = false;
+  // Ein Frame warten, sonst greift die Transition nicht.
+  requestAnimationFrame(() => panel.classList.add('is-open'));
+  panel.querySelector('.hf-panel__close').focus();
+}
+
+function closePanel() {
+  panel.classList.remove('is-open');
+  setTimeout(() => { panel.hidden = true; }, 420);
+}
+
+panel.querySelector('.hf-panel__close').addEventListener('click', closePanel);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !panel.hidden) closePanel();
+});
+
+root.addEventListener('hfmap:select', (e) => {
+  // Klick auf ein Land liefert {loc, site}, Klick auf ein Programmsymbol einen Cluster.
+  const d = e.detail;
+  if (d.loc) openPanel(d.loc, d.site);
+  else if (d.lead) openPanel(d.lead.loc, d.lead);
+});
+
+/* ---------- Kennzahlen zaehlen bei jedem Wechsel mit ---------- */
+const counters = new Map();
+document.querySelectorAll('[data-stat]').forEach((el) => counters.set(el.dataset.stat, { el, from: 0 }));
+
+root.addEventListener('hfmap:change', (e) => {
+  for (const [key, c] of counters) {
+    const to = e.detail[key] ?? 0;
+    const from = c.from;
+    c.from = to;
+    const t0 = performance.now();
+    const tick = (now) => {
+      const k = Math.min(1, (now - t0) / 700);
+      const eased = 1 - Math.pow(1 - k, 3);
+      c.el.textContent = Math.round(from + (to - from) * eased).toLocaleString('de-DE');
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  renderTable(e.detail.program);
+  renderRamp(e.detail.program);
+});
+
+/* ---------- Legende: folgt der Farbe der Karte ---------- */
+const ramp = document.querySelector('.hf-legend__ramp');
+const RAMP_BLUE = ['#a8d0ee', '#7ab7e4', '#4a9bd8', '#1c7cc0', '#064a7d'];
+const SIZES = [5, 6, 8, 10, 12];
+
+function renderRamp(programId) {
+  const color = programId ? data.programs.find((p) => p.id === programId).color : null;
+  ramp.innerHTML = '';
+  SIZES.forEach((size, i) => {
+    const d = document.createElement('span');
+    d.className = 'hf-legend__dot';
+    // Im Programm-Modus zeigt die Legende dieselbe Farbe wie die Karte,
+    // abgestuft ueber Deckkraft - sonst widerspricht sie dem Bild.
+    d.style.cssText = color
+      ? `width:${size}px;height:${size}px;background:${color};opacity:${0.3 + i * 0.175}`
+      : `width:${size}px;height:${size}px;background:${RAMP_BLUE[i]}`;
+    ramp.appendChild(d);
+  });
+  document.querySelector('.hf-legend__accent').hidden = Boolean(programId);
+}
+renderRamp(null);
+
+/* ---------- Textalternative ---------- */
+const wrap = document.getElementById('hf-table');
+const toggle = document.querySelector('.hf-table-toggle');
+const names = new Map(data.programs.map((p) => [p.id, p.name]));
+
+function renderTable(program) {
+  const rows = data.locations
+    .map((l) => {
+      const acts = program ? l.activities.filter((a) => a.program === program) : l.activities;
+      if (!acts.length) return null;
+      return {
+        name: l.name,
+        programs: acts.map((a) => names.get(a.program)).join(', '),
+        total: acts.reduce((s, a) => s + a.beneficiaries, 0),
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.total - a.total);
+
+  wrap.innerHTML = `<table class="hf-table">
+    <caption class="hf-note" style="margin:.5rem">Standorte und erreichte Menschen${program ? ` - ${names.get(program)}` : ''}</caption>
+    <thead><tr><th>Land</th><th>Programme</th><th>Menschen</th></tr></thead>
+    <tbody>${rows.map((r) => `<tr><td>${r.name}</td><td>${r.programs}</td><td>${r.total.toLocaleString('de-DE')}</td></tr>`).join('')}</tbody>
+  </table>`;
+}
+
+toggle.addEventListener('click', () => {
+  const open = wrap.hidden;
+  wrap.hidden = !open;
+  toggle.setAttribute('aria-expanded', String(open));
+  toggle.textContent = open ? 'Tabelle ausblenden' : 'Alle Standorte als Tabelle anzeigen';
+});
+
+// Der erste 'hfmap:change' faellt noch im Konstruktor an - hier nachziehen,
+// damit Kennzahlen, Legende und Tabelle initial gefuellt sind.
+map.emitChange();
+</script>
+</body>
+</html>

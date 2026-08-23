@@ -1,0 +1,654 @@
+/* ================================================================== *
+ * Humanity First - Hero mit Punktraster-Weltkarte
+ * Heller Grund, HF-Blau als Datenfarbe, Gold fuer Schwerpunktregionen.
+ * ================================================================== */
+
+.hf-hero {
+  --hf-blue: #0769b3;
+  --hf-blue-dark: #04476f;
+  --hf-green: #7aa93c;
+  --hf-gold: #e8951c;
+
+  --hf-bg: #f4f7fa;
+  --hf-bg-soft: #ffffff;
+  --hf-ink: #10202e;
+  --hf-ink-soft: #46586a;
+  --hf-ink-dim: #7d8fa0;
+  --hf-line: #dbe4ed;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(2rem, 4.5vw, 4rem) clamp(1.25rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(180deg, var(--hf-bg-soft), var(--hf-bg) 55%, #eef3f8);
+  color: var(--hf-ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Zwei sehr weiche Lichter, die langsam wandern - das ist die "Welle" im
+   Hintergrund. Rein dekorativ und billig: kostet keinen Canvas-Frame. */
+.hf-hero::before,
+.hf-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(50px);
+}
+
+.hf-hero::before {
+  inset: -18% 30% 35% -12%;
+  background: radial-gradient(circle, rgba(7, 105, 179, 0.13), transparent 68%);
+  animation: hf-drift-a 54s ease-in-out infinite alternate;
+}
+
+.hf-hero::after {
+  inset: 30% -14% -20% 42%;
+  background: radial-gradient(circle, rgba(232, 149, 28, 0.11), transparent 68%);
+  animation: hf-drift-b 68s ease-in-out infinite alternate;
+}
+
+@keyframes hf-drift-a {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to   { transform: translate3d(6%, 4%, 0) scale(1.12); }
+}
+
+@keyframes hf-drift-b {
+  from { transform: translate3d(4%, 3%, 0) scale(1.08); }
+  to   { transform: translate3d(-5%, -3%, 0) scale(1); }
+}
+
+/* ---------- Aussage und Handlungsaufforderungen ---------- */
+
+.hf-hero__head {
+  max-width: 44rem;
+  margin: 0 auto clamp(1.25rem, 3vw, 2rem);
+  text-align: center;
+}
+
+.hf-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0.32rem 0.8rem;
+  border: 1px solid var(--hf-line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--hf-ink-soft);
+}
+
+.hf-hero__eyebrow svg {
+  width: 17px;
+  height: 17px;
+  color: var(--hf-blue);
+}
+
+.hf-hero__title {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.024em;
+  font-weight: 700;
+}
+
+.hf-hero__title em { font-style: normal; color: var(--hf-blue); }
+
+.hf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: clamp(1.25rem, 3vw, 1.75rem) 0 0;
+}
+
+.hf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.72rem 1.35rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.18s;
+}
+
+.hf-btn--primary {
+  background: var(--hf-blue);
+  color: #fff;
+  box-shadow: 0 8px 20px -10px rgba(7, 105, 179, 0.7);
+}
+
+.hf-btn--primary:hover { background: var(--hf-blue-dark); transform: translateY(-1px); }
+
+.hf-btn--ghost {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--hf-line);
+  color: var(--hf-ink);
+}
+
+.hf-btn--ghost:hover { border-color: var(--hf-blue); color: var(--hf-blue); }
+
+.hf-btn:focus-visible { outline: 2px solid var(--hf-blue); outline-offset: 3px; }
+
+/* ---------- Karte ---------- */
+
+.hfmap {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.hfmap__canvas { display: block; width: 100%; touch-action: pan-y; }
+
+/* ---------- Fuehrungslinien ---------- */
+
+.hfmap__leaders {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.hfmap__leader {
+  fill: none;
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  stroke-linecap: round;
+  opacity: 0.42;
+  transition: opacity 0.22s, stroke-width 0.22s;
+  animation: hf-leader-in 0.9s ease 2.25s backwards;
+}
+
+.hfmap__leader.is-dimmed { opacity: 0.1; }
+
+/* Im Zoom zeigen die Fuehrungslinien nicht mehr auf ihr Ziel - die Karte hat
+   sich unter ihnen verschoben. Also treten sie zurueck. */
+.hfmap.is-zoomed .hfmap__leader { opacity: 0; }
+.hfmap__leader.is-lifted { opacity: 0.95; stroke-width: 1.6; }
+
+@keyframes hf-leader-in { from { opacity: 0; } }
+
+/* ---------- Programm-Bubbles ---------- */
+
+.hfmap__bubbles { position: absolute; inset: 0; pointer-events: none; }
+
+/* Nullpunkt-Anker: nur so sitzt der Kreis exakt an der geplanten Stelle,
+   egal wie breit der Text daneben wird. */
+.hfmap__bubble {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.hfmap__bubble-icon {
+  position: absolute;
+  left: -23px;
+  top: -23px;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--bubble-color);
+  box-shadow: 0 5px 16px -4px rgba(16, 32, 46, 0.28), 0 0 0 1px rgba(16, 32, 46, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+  animation: hf-bubble-in 0.5s cubic-bezier(0.2, 1.25, 0.4, 1) 2.15s backwards;
+}
+
+.hfmap__bubble-icon svg { width: 24px; height: 24px; }
+
+/* Der Text steht dauerhaft da - vier der acht Programmfarben liegen unter
+   3:1 Kontrast, Farbe allein darf das Programm also nicht benennen.
+   Der weisse Halo haelt ihn ueber dem Punktraster lesbar. */
+.hfmap__bubble-text {
+  display: none;
+  position: absolute;
+  left: 28px;
+  top: 0;
+  transform: translateY(-50%);
+  max-width: 10.5rem;
+  text-align: left;
+  line-height: 1.25;
+  animation: hf-fade-in 0.5s ease 2.4s backwards;
+}
+
+.hfmap__bubble[data-side="right"] .hfmap__bubble-text {
+  left: auto;
+  right: 28px;
+  text-align: right;
+}
+
+.hfmap__bubble-text b {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--hf-ink);
+  white-space: nowrap;
+  text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 12px #fff;
+}
+
+.hfmap__bubble-text i {
+  display: block;
+  font-style: normal;
+  font-size: 0.68rem;
+  color: var(--hf-ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 12px #fff;
+}
+
+@media (min-width: 1080px) {
+  .hfmap__bubble-text { display: block; }
+}
+
+.hfmap__bubble:hover .hfmap__bubble-icon,
+.hfmap__bubble:focus-visible .hfmap__bubble-icon {
+  transform: scale(1.12);
+  background: var(--bubble-color);
+  color: #fff;
+  box-shadow: 0 10px 24px -6px rgba(16, 32, 46, 0.4);
+}
+
+.hfmap__bubble[aria-pressed="true"] .hfmap__bubble-icon {
+  background: var(--bubble-color);
+  color: #fff;
+}
+
+.hfmap__bubble.is-dimmed { opacity: 0.34; }
+
+/* Waehrend der Kamerafahrt gehoert die Aufmerksamkeit der Karte. Die Symbole
+   bleiben bedienbar, treten aber zurueck. */
+.hfmap.is-zoomed .hfmap__bubble { opacity: 0.5; }
+.hfmap.is-zoomed .hfmap__bubble:hover,
+.hfmap.is-zoomed .hfmap__bubble:focus-visible { opacity: 1; }
+
+.hfmap__bubble { transition: opacity 0.3s ease; }
+
+.hfmap__bubble:focus-visible { outline: none; }
+.hfmap__bubble:focus-visible .hfmap__bubble-icon { outline: 2px solid var(--hf-ink); outline-offset: 3px; }
+
+@keyframes hf-fade-in { from { opacity: 0; } }
+
+@keyframes hf-bubble-in {
+  from { opacity: 0; transform: scale(0.65); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- Tooltip am Cursor ---------- */
+
+.hfmap__tooltip {
+  position: absolute;
+  z-index: 5;
+  min-width: 12.5rem;
+  max-width: 16rem;
+  padding: 0.65rem 0.78rem;
+  border: 1px solid var(--hf-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.97);
+  /* Zwei Schatten und eine leichte Neigung: die Karte soll ueber dem Raster
+     schweben, nicht darauf liegen. */
+  box-shadow: 0 2px 6px -2px rgba(16, 32, 46, 0.16), 0 22px 48px -14px rgba(16, 32, 46, 0.42);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(24px, -50%) perspective(700px) rotateY(-7deg);
+  transform-origin: left center;
+  transition: opacity 0.16s ease, transform 0.28s cubic-bezier(0.2, 0.8, 0.3, 1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Foto in der Hover-Karte: erst sichtbar, wenn es geladen ist - sonst
+   springt die Kartenhoehe. */
+.hfmap__tip-photo {
+  display: block;
+  height: 0;
+  margin: -0.65rem -0.78rem 0;
+  background-color: #e7eef5;
+  background-position: center;
+  background-size: cover;
+  transition: height 0.26s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.hfmap__tip-photo.is-loaded { height: 104px; margin-bottom: 0.6rem; }
+
+.hfmap__tip-more {
+  margin: 0.5rem 0 0;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--hf-line);
+  font-size: 0.68rem;
+  color: var(--hf-ink-dim);
+}
+
+.hfmap__tooltip.is-visible { opacity: 1; visibility: visible; }
+
+/* Gespiegelt kippt die Karte in die andere Richtung, damit die Neigung immer
+   vom Cursor weg zeigt. */
+.hfmap__tooltip[data-flip-x="1"] {
+  transform: translate(calc(-100% - 24px), -50%) perspective(700px) rotateY(7deg);
+  transform-origin: right center;
+}
+.hfmap__tooltip[data-flip-y="1"] {
+  transform: translate(24px, calc(-100% + 18px)) perspective(700px) rotateY(-7deg);
+}
+.hfmap__tooltip[data-flip-x="1"][data-flip-y="1"] {
+  transform: translate(calc(-100% - 24px), calc(-100% + 18px)) perspective(700px) rotateY(7deg);
+  transform-origin: right center;
+}
+
+.hfmap__tooltip h4 { margin: 0 0 0.15rem; font-size: 0.9rem; }
+
+.hfmap__tip-total {
+  margin: 0 0 0.5rem;
+  font-size: 0.76rem;
+  font-weight: 650;
+  color: var(--hf-blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.hfmap__tip-total span { color: var(--hf-ink-dim); font-weight: 400; }
+
+.hfmap__tip-muted { margin: 0; font-size: 0.76rem; line-height: 1.45; color: var(--hf-ink-dim); }
+
+.hfmap__tooltip ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.26rem; }
+
+.hfmap__tooltip li {
+  display: grid;
+  grid-template-columns: 9px 1fr auto;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+  color: var(--hf-ink-soft);
+}
+
+.hfmap__tooltip li i { width: 9px; height: 9px; border-radius: 2px; }
+.hfmap__tooltip li b { color: var(--hf-ink); font-variant-numeric: tabular-nums; }
+
+/* ---------- Kennzahlen und Legende unter der Karte ---------- */
+
+.hf-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 4vw, 3rem);
+  max-width: 62rem;
+  margin: clamp(0.75rem, 2vw, 1.5rem) auto 0;
+}
+
+.hf-stats { display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
+
+.hf-stat { text-align: center; }
+
+.hf-stat__value {
+  display: block;
+  font-size: clamp(1.2rem, 2.4vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--hf-ink);
+}
+
+.hf-stat__label {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hf-ink-dim);
+}
+
+.hf-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.7rem;
+  color: var(--hf-ink-dim);
+}
+
+.hf-legend__ramp { display: flex; align-items: center; gap: 5px; }
+
+/* Auf schmalen Viewports nur die Rampe und den Akzent - die Beschriftung
+   bricht sonst dreizeilig um. */
+@media (max-width: 700px) {
+  .hf-legend > span:first-child,
+  .hf-legend > span:nth-child(3) { display: none; }
+  .hf-legend__accent { border-left: 0; padding-left: 0; }
+}
+.hf-legend__dot { border-radius: 50%; }
+
+.hf-legend__accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding-left: 0.55rem;
+  border-left: 1px solid var(--hf-line);
+}
+
+.hf-legend__accent::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--hf-gold);
+  box-shadow: 0 0 8px -1px var(--hf-gold);
+}
+
+/* ---------- Detail-Panel: Masonry-Grid der Projektfotos ---------- */
+
+.hf-panel {
+  position: fixed;
+  z-index: 50;
+  inset: auto 0 0 0;
+  max-height: min(68vh, 660px);
+  overflow: auto;
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+  background: #fff;
+  border-top: 1px solid var(--hf-line);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -18px 50px -18px rgba(16, 32, 46, 0.3);
+  transform: translateY(101%);
+  transition: transform 0.42s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.hf-panel.is-open { transform: translateY(0); }
+
+.hf-panel[hidden] { display: none; }
+
+.hf-panel__inner { max-width: 68rem; margin: 0 auto; }
+
+.hf-panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 2rem;
+  margin-bottom: 1.25rem;
+  padding-right: 2.75rem;   /* Platz fuer den Schliessen-Knopf */
+}
+
+@media (max-width: 700px) {
+  .hf-panel__head { display: block; padding-right: 2.75rem; }
+  .hf-panel__figures { margin: 0.6rem 0 0; gap: 1.5rem; }
+}
+
+.hf-panel__title { margin: 0; font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -0.02em; }
+
+.hf-panel__figures {
+  display: flex;
+  gap: 1.5rem;
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.hf-panel__figure b { display: block; font-size: 1.15rem; }
+.hf-panel__figure span {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hf-ink-dim);
+}
+
+.hf-panel__programs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.hf-panel__programs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.72rem 0.32rem 0.5rem;
+  border: 1px solid var(--hf-line);
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.hf-panel__programs svg { width: 16px; height: 16px; color: var(--chip-color); }
+.hf-panel__programs b { font-variant-numeric: tabular-nums; }
+
+/* Masonry ueber CSS-Spalten: die Fotos haben unterschiedliche Formate,
+   ein starres Raster wuerde sie beschneiden. */
+.hf-masonry { columns: 3 240px; column-gap: 0.75rem; }
+
+/* Auf schmalen Viewports zwei Spalten statt einer: eine Spalte macht jedes
+   Foto bildschirmfuellend, und man scrollt endlos. */
+@media (max-width: 700px) {
+  .hf-masonry { columns: 2 120px; column-gap: 0.5rem; }
+  .hf-masonry figure { margin-bottom: 0.5rem; }
+  .hf-masonry figcaption { padding: 0.35rem 0.5rem 0.45rem; font-size: 0.66rem; }
+}
+
+.hf-masonry figure {
+  margin: 0 0 0.75rem;
+  break-inside: avoid;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eef3f8;
+}
+
+.hf-masonry img { display: block; width: 100%; height: auto; }
+
+.hf-masonry figcaption {
+  padding: 0.5rem 0.7rem 0.6rem;
+  font-size: 0.74rem;
+  line-height: 1.4;
+  color: var(--hf-ink-soft);
+}
+
+.hf-panel__empty { margin: 0; font-size: 0.85rem; color: var(--hf-ink-dim); }
+
+.hf-panel__close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--hf-line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--hf-ink-soft);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.hf-panel__close:hover { color: var(--hf-ink); border-color: var(--hf-ink-dim); }
+
+.hf-panel__hint {
+  margin: 1.25rem 0 0;
+  font-size: 0.72rem;
+  color: var(--hf-ink-dim);
+}
+
+/* ---------- Datentabelle als Textalternative ---------- */
+
+.hf-table-toggle {
+  display: block;
+  margin: 1rem auto 0;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--hf-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--hf-ink-soft);
+  font: inherit;
+  font-size: 0.76rem;
+  cursor: pointer;
+}
+
+.hf-table-toggle:hover { color: var(--hf-blue); border-color: var(--hf-blue); }
+
+.hf-table-wrap {
+  max-width: 52rem;
+  margin: 1rem auto 0;
+  max-height: 20rem;
+  overflow: auto;
+  border: 1px solid var(--hf-line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.hf-table-wrap[hidden] { display: none; }
+
+.hf-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+
+.hf-table th,
+.hf-table td { padding: 0.42rem 0.7rem; text-align: left; border-bottom: 1px solid var(--hf-line); }
+
+.hf-table th {
+  position: sticky;
+  top: 0;
+  background: #f7fafc;
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--hf-ink-dim);
+}
+
+.hf-table td:last-child,
+.hf-table th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+
+.hf-note {
+  max-width: 52rem;
+  margin: 0.9rem auto 0;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--hf-ink-dim);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hf-panel { transition: none; }
+  .hfmap__tooltip { transform: translate(24px, -50%) !important; }
+  .hf-hero::before,
+  .hf-hero::after,
+  .hfmap__bubble-icon,
+  .hfmap__bubble-text,
+  .hfmap__leader { animation: none; }
+}

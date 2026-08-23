@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Editor / Werkzeuge
+.claude/
+*.log
+
+# Rohdaten des Rastergenerators: die GeoJSON-Quellen sind gross und werden
+# nicht gebraucht - src/landmask.js ist das Erzeugnis und liegt im Repo.
+*.geojson
+tools/*.orig

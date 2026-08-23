@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><title>Icon-Test</title>
+<style>
+ body{margin:0;padding:2rem;background:#f4f7fa;font:14px/1.4 system-ui}
+ .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.5rem;max-width:1200px}
+ figure{margin:0;text-align:center}
+ .big{display:grid;place-items:center;width:104px;height:104px;margin:0 auto .5rem;background:#fff;
+      border-radius:50%;box-shadow:0 5px 16px -4px rgba(16,32,46,.28)}
+ .big svg{width:60px;height:60px}
+ .row{display:flex;gap:.6rem;justify-content:center;align-items:center;margin-top:.5rem}
+ .sm{display:grid;place-items:center;width:46px;height:46px;background:#fff;border-radius:50%;
+     box-shadow:0 4px 12px -3px rgba(16,32,46,.3)}
+ .sm svg{width:24px;height:24px}
+ .inv{background:currentColor}
+ .inv svg{color:#fff}
+ figcaption{font-size:.78rem;color:#46586a;margin-top:.4rem}
+</style></head><body>
+<div class="grid" id="g"></div>
+<script type="module">
+import { ICONS } from './src/icons.js';
+const data = await fetch('./data/locations.json').then(r=>r.json());
+const rows = [...data.programs.map(p=>({name:p.name,color:p.color,icon:p.icon})),
+              {name:'Dachmarke',color:'#0069B4',icon:'mark'}];
+document.getElementById('g').innerHTML = rows.map(r=>`
+  <figure style="color:${r.color}">
+    <div class="big">${ICONS[r.icon]}</div>
+    <div class="row">
+      <span class="sm">${ICONS[r.icon]}</span>
+      <span class="sm inv">${ICONS[r.icon]}</span>
+    </div>
+    <figcaption>${r.name}<br><code>${r.color}</code></figcaption>
+  </figure>`).join('');
+</script></body></html>

@@ -1,0 +1,1333 @@
+{
+ "meta": {
+  "stand": "2026-08-21",
+  "quelle_verifiziert": "humanityfirst.de (Programme, Laenderliste 'Ueber uns')",
+  "WARNUNG": "Alle 'beneficiaries' und 'projects' sind PLATZHALTER zur Demonstration der Visualisierung. Vor dem Livegang durch echte Zahlen ersetzen. Feld 'verified' markiert, was von der Website belegt ist.",
+  "tiers": {
+   "focus": "Laender, in denen Humanity First Deutschland eigenstaendig Projekte durchfuehrt (von humanityfirst.de belegt)",
+   "network": "Weitere Laender des Humanity-First-Netzwerks (HFI: 52 Laender registriert, 60+ mit Projekten). PLATZHALTERLISTE - gegen offizielle HFI-Liste abgleichen."
+  },
+  "verknuepfung": "Standorte werden ueber iso (ISO-3166-1 alpha-2) mit dem Laenderraster verbunden. lat/lon markiert den Kernpunkt des Hotspots innerhalb des Landes.",
+  "farben": "Programmfarben und Icons folgen den offiziellen HF-Programmlogos. Die Hex-Werte sind aus den Logos abgelesen - bitte gegen den Brand-Guide pruefen.",
+  "fotos": "Fotos in assets/photos stammen von humanityfirst.de (Bildergalerie und News-Beitraege 2019-2025). WICHTIG: \"caption\" nennt nur das belegte Album bzw. den Beitrag, \"alt\" beschreibt neutral das Sichtbare. Was ein Bild inhaltlich zeigt - welches Projekt, welcher Ort, welches Programm - muss das HF-Team ergaenzen; aus dem Bild allein ist das nicht ableitbar. Standorte ohne photos-Feld zeigen keine Bilder."
+ },
+ "programs": [
+  {
+   "id": "water-for-life",
+   "name": "Water for Life",
+   "de": "Wasser fuer das Leben",
+   "color": "#0069B4",
+   "icon": "droplet"
+  },
+  {
+   "id": "disaster-relief",
+   "name": "Disaster Relief",
+   "de": "Katastrophenhilfe",
+   "color": "#E30613",
+   "icon": "aidkit"
+  },
+  {
+   "id": "food-security",
+   "name": "Food Security",
+   "de": "Ernaehrungssicherheit",
+   "color": "#B08150",
+   "icon": "grain"
+  },
+  {
+   "id": "gift-of-sight",
+   "name": "Gift of Sight",
+   "de": "Geschenk des Sehens",
+   "color": "#6E1A52",
+   "icon": "eye"
+  },
+  {
+   "id": "orphan-care",
+   "name": "Orphan Care",
+   "de": "Waisenfuersorge",
+   "color": "#F49600",
+   "icon": "teddy"
+  },
+  {
+   "id": "community-care",
+   "name": "Community Care",
+   "de": "Gemeinschaftshilfe",
+   "color": "#E1500F",
+   "icon": "dome"
+  },
+  {
+   "id": "knowledge-for-life",
+   "name": "Knowledge for Life",
+   "de": "Bildung",
+   "color": "#17705A",
+   "icon": "book"
+  },
+  {
+   "id": "global-health",
+   "name": "Global Health",
+   "de": "Globale Gesundheit",
+   "color": "#2B3087",
+   "icon": "heartbeat"
+  }
+ ],
+ "locations": [
+  {
+   "id": "togo",
+   "iso": "TG",
+   "name": "Togo",
+   "lat": 8.6,
+   "lon": 0.9,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 340000,
+     "projects": 260,
+     "verified": true,
+     "note": "Brunnenbau und Rehabilitation von Handpumpen"
+    },
+    {
+     "program": "global-health",
+     "beneficiaries": 31000,
+     "projects": 12,
+     "verified": false
+    },
+    {
+     "program": "knowledge-for-life",
+     "beneficiaries": 9500,
+     "projects": 8,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/tg-1.jpg",
+     "alt": "Grosse Versammlung von Menschen unter Baeumen",
+     "caption": "Reisebericht Togo, November 2023"
+    },
+    {
+     "src": "assets/photos/tg-4.jpg",
+     "alt": "Gruppe mit Helfenden in Humanity-First-Westen",
+     "caption": "Togo 2024"
+    },
+    {
+     "src": "assets/photos/tg-12.jpg",
+     "alt": "Menschen an einer Wasserstelle",
+     "caption": "Togo 2024"
+    },
+    {
+     "src": "assets/photos/tg-11.jpg",
+     "alt": "Viele Menschen unter einem Zeltdach",
+     "caption": "Togo 2024"
+    },
+    {
+     "src": "assets/photos/tg-10.jpg",
+     "alt": "Zwei Kinder sitzen nebeneinander",
+     "caption": "Togo 2024"
+    }
+   ]
+  },
+  {
+   "id": "benin",
+   "iso": "BJ",
+   "name": "Benin",
+   "lat": 9.5,
+   "lon": 2.3,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 165000,
+     "projects": 190,
+     "verified": true
+    },
+    {
+     "program": "orphan-care",
+     "beneficiaries": 75,
+     "projects": 1,
+     "verified": false,
+     "note": "Ahmadiyya Daroul Ikram - Standort bitte pruefen"
+    },
+    {
+     "program": "gift-of-sight",
+     "beneficiaries": 4200,
+     "projects": 6,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/bj-2.jpg",
+     "alt": "Aerztinnen und Aerzte bei einer Operation",
+     "caption": "Benin 2025"
+    },
+    {
+     "src": "assets/photos/bj-5.jpg",
+     "alt": "Kinder auf einem Spielplatz",
+     "caption": "Waisenheim Benin, 2023"
+    },
+    {
+     "src": "assets/photos/bj-1.jpg",
+     "alt": "Gebaeude mit Baum davor",
+     "caption": "Benin 2025"
+    },
+    {
+     "src": "assets/photos/bj-3.jpg",
+     "alt": "Menschen an einem Fahrzeug",
+     "caption": "Benin 2025"
+    },
+    {
+     "src": "assets/photos/bj-4.jpg",
+     "alt": "Kinder in Schulkleidung",
+     "caption": "Benin 2025"
+    }
+   ]
+  },
+  {
+   "id": "pakistan",
+   "iso": "PK",
+   "name": "Pakistan",
+   "lat": 29.0,
+   "lon": 69.3,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 210000,
+     "projects": 410,
+     "verified": true,
+     "note": "Region Tharparkar"
+    },
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 42000,
+     "projects": 22,
+     "verified": false
+    },
+    {
+     "program": "global-health",
+     "beneficiaries": 28000,
+     "projects": 18,
+     "verified": false
+    },
+    {
+     "program": "food-security",
+     "beneficiaries": 35000,
+     "projects": 30,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "niger",
+   "iso": "NE",
+   "name": "Niger",
+   "lat": 15.5,
+   "lon": 8.1,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 62000,
+     "projects": 70,
+     "verified": false
+    },
+    {
+     "program": "food-security",
+     "beneficiaries": 96000,
+     "projects": 25,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/ne-2.jpg",
+     "alt": "Augenuntersuchung bei einem Patienten",
+     "caption": "Niger 2022"
+    },
+    {
+     "src": "assets/photos/ne-3.jpg",
+     "alt": "Gebaeude mit blauem Tor",
+     "caption": "Niger 2022"
+    },
+    {
+     "src": "assets/photos/ne-4.jpg",
+     "alt": "Grosse Gruppe wartender Menschen",
+     "caption": "Niger 2022"
+    },
+    {
+     "src": "assets/photos/ne-1.jpg",
+     "alt": "Team in Humanity-First-Westen im Freien",
+     "caption": "Niger 2022"
+    }
+   ]
+  },
+  {
+   "id": "madagaskar",
+   "iso": "MG",
+   "name": "Madagaskar",
+   "lat": -19.0,
+   "lon": 46.9,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "food-security",
+     "beneficiaries": 38000,
+     "projects": 21,
+     "verified": false
+    },
+    {
+     "program": "water-for-life",
+     "beneficiaries": 27000,
+     "projects": 34,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/mg-1.jpg",
+     "alt": "Helfer schieben ein Boot durch Hochwasser",
+     "caption": "Fluten in Madagaskar, 2023"
+    },
+    {
+     "src": "assets/photos/mg-3.jpg",
+     "alt": "Behelfsbruecke ueber ueberflutetes Gelaende",
+     "caption": "Fluten in Madagaskar, 2023"
+    },
+    {
+     "src": "assets/photos/mg-2.jpg",
+     "alt": "Aufgeschichtetes Holz und Truemmer",
+     "caption": "Fluten in Madagaskar, 2023"
+    },
+    {
+     "src": "assets/photos/mg-4.jpg",
+     "alt": "Menschen an einem Gestell im Freien",
+     "caption": "Fluten in Madagaskar, 2023"
+    }
+   ]
+  },
+  {
+   "id": "sao-tome",
+   "iso": "ST",
+   "name": "Sao Tome und Principe",
+   "lat": 0.25,
+   "lon": 6.6,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "global-health",
+     "beneficiaries": 12000,
+     "projects": 7,
+     "verified": false
+    },
+    {
+     "program": "gift-of-sight",
+     "beneficiaries": 2800,
+     "projects": 4,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/st-2.jpg",
+     "alt": "Lachende Kinder in Schulkleidung",
+     "caption": "Sao Tome 2019"
+    },
+    {
+     "src": "assets/photos/st-1.jpg",
+     "alt": "Erwachsene und Kinder im Freien",
+     "caption": "Sao Tome 2019"
+    },
+    {
+     "src": "assets/photos/st-3.jpg",
+     "alt": "Gruppe von Kindern",
+     "caption": "Sao Tome 2019"
+    }
+   ]
+  },
+  {
+   "id": "mauritius",
+   "iso": "MU",
+   "name": "Mauritius",
+   "lat": -20.3,
+   "lon": 57.55,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 6400,
+     "projects": 9,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/mu-1.jpg",
+     "alt": "Vortrag vor einem Bildschirm mit Praesentation",
+     "caption": "Info-Session Queen-Elizabeth-Hospital, Rodrigues 2025"
+    },
+    {
+     "src": "assets/photos/mu-2.jpg",
+     "alt": "Teilnehmende an Tischen",
+     "caption": "Rodrigues 2025"
+    },
+    {
+     "src": "assets/photos/mu-10.jpg",
+     "alt": "Uebergabe zwischen zwei Personen in Westen",
+     "caption": "Rodrigues 2025"
+    },
+    {
+     "src": "assets/photos/mu-11.jpg",
+     "alt": "Gruppenbild vor einem Gebaeude",
+     "caption": "Rodrigues 2025"
+    }
+   ]
+  },
+  {
+   "id": "albanien",
+   "iso": "AL",
+   "name": "Albanien",
+   "lat": 41.0,
+   "lon": 20.0,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 8900,
+     "projects": 12,
+     "verified": false
+    },
+    {
+     "program": "knowledge-for-life",
+     "beneficiaries": 3100,
+     "projects": 5,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "nordmazedonien",
+   "iso": "MK",
+   "name": "Nordmazedonien",
+   "lat": 41.6,
+   "lon": 21.7,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 5200,
+     "projects": 8,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "polen",
+   "iso": "PL",
+   "name": "Polen",
+   "lat": 52.0,
+   "lon": 19.1,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 46000,
+     "projects": 14,
+     "verified": false,
+     "note": "Ukraine-Nothilfe"
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/pl-1.jpg",
+     "alt": "Luftbild einer ueberfluteten Ortschaft",
+     "caption": "Flutkatastrophe Polen und Tschechien"
+    }
+   ]
+  },
+  {
+   "id": "deutschland",
+   "iso": "DE",
+   "name": "Deutschland",
+   "lat": 51.2,
+   "lon": 10.4,
+   "tier": "focus",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 34000,
+     "projects": 60,
+     "verified": false
+    },
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 18000,
+     "projects": 11,
+     "verified": false,
+     "note": "u.a. Flutkatastrophe Ahrtal"
+    },
+    {
+     "program": "knowledge-for-life",
+     "beneficiaries": 7300,
+     "projects": 24,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/de-2.jpg",
+     "alt": "Gaeste bei einer Abendveranstaltung",
+     "caption": "Jubilaeumsdinner, 30 Jahre Humanity First"
+    },
+    {
+     "src": "assets/photos/de-1.jpg",
+     "alt": "Buehne mit Praesentation",
+     "caption": "Jubilaeumsdinner, 30 Jahre Humanity First"
+    }
+   ]
+  },
+  {
+   "id": "ghana",
+   "iso": "GH",
+   "name": "Ghana",
+   "lat": 7.9,
+   "lon": -1.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 45000,
+     "projects": 52,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "sierra-leone",
+   "iso": "SL",
+   "name": "Sierra Leone",
+   "lat": 8.5,
+   "lon": -11.8,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "global-health",
+     "beneficiaries": 29000,
+     "projects": 14,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "liberia",
+   "iso": "LR",
+   "name": "Liberia",
+   "lat": 6.4,
+   "lon": -9.4,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "global-health",
+     "beneficiaries": 16000,
+     "projects": 8,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "gambia",
+   "iso": "GM",
+   "name": "Gambia",
+   "lat": 13.45,
+   "lon": -15.4,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "gift-of-sight",
+     "beneficiaries": 11000,
+     "projects": 9,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "burkina-faso",
+   "iso": "BF",
+   "name": "Burkina Faso",
+   "lat": 12.3,
+   "lon": -1.6,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 34000,
+     "projects": 40,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "mali",
+   "iso": "ML",
+   "name": "Mali",
+   "lat": 16.5,
+   "lon": -4.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "food-security",
+     "beneficiaries": 22000,
+     "projects": 15,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "senegal",
+   "iso": "SN",
+   "name": "Senegal",
+   "lat": 14.5,
+   "lon": -14.8,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 19000,
+     "projects": 24,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "nigeria",
+   "iso": "NG",
+   "name": "Nigeria",
+   "lat": 9.1,
+   "lon": 8.7,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "global-health",
+     "beneficiaries": 88000,
+     "projects": 26,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "guinea-bissau",
+   "iso": "GW",
+   "name": "Guinea-Bissau",
+   "lat": 12.0,
+   "lon": -14.8,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 9000,
+     "projects": 11,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "kenia",
+   "iso": "KE",
+   "name": "Kenia",
+   "lat": 0.5,
+   "lon": 37.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "food-security",
+     "beneficiaries": 31000,
+     "projects": 19,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "tansania",
+   "iso": "TZ",
+   "name": "Tansania",
+   "lat": -6.4,
+   "lon": 34.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "gift-of-sight",
+     "beneficiaries": 14000,
+     "projects": 11,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "uganda",
+   "iso": "UG",
+   "name": "Uganda",
+   "lat": 1.4,
+   "lon": 32.3,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "knowledge-for-life",
+     "beneficiaries": 12000,
+     "projects": 17,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/ug-1.jpg",
+     "alt": "Feierliches Durchschneiden eines Bandes",
+     "caption": "Uganda 2025"
+    },
+    {
+     "src": "assets/photos/ug-10.jpg",
+     "alt": "Aufgereihte Rollstuehle",
+     "caption": "Uganda 2025"
+    },
+    {
+     "src": "assets/photos/ug-11.jpg",
+     "alt": "Menschen mit Fahrraedern und Helfende in Westen",
+     "caption": "Uganda 2025"
+    },
+    {
+     "src": "assets/photos/ug-12.jpg",
+     "alt": "Person mit einem Fahrzeug",
+     "caption": "Uganda 2025"
+    }
+   ]
+  },
+  {
+   "id": "sudan",
+   "iso": "SD",
+   "name": "Sudan",
+   "lat": 15.0,
+   "lon": 30.2,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 63000,
+     "projects": 12,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "aethiopien",
+   "iso": "ET",
+   "name": "Aethiopien",
+   "lat": 9.1,
+   "lon": 39.5,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "food-security",
+     "beneficiaries": 27000,
+     "projects": 14,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "mosambik",
+   "iso": "MZ",
+   "name": "Mosambik",
+   "lat": -18.0,
+   "lon": 35.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 21000,
+     "projects": 8,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "sambia",
+   "iso": "ZM",
+   "name": "Sambia",
+   "lat": -14.0,
+   "lon": 27.8,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 13000,
+     "projects": 16,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "kamerun",
+   "iso": "CM",
+   "name": "Kamerun",
+   "lat": 5.7,
+   "lon": 12.7,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "global-health",
+     "beneficiaries": 17000,
+     "projects": 9,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "kongo",
+   "iso": "CD",
+   "name": "DR Kongo",
+   "lat": -2.9,
+   "lon": 23.6,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "global-health",
+     "beneficiaries": 24000,
+     "projects": 11,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "marokko",
+   "iso": "MA",
+   "name": "Marokko",
+   "lat": 31.8,
+   "lon": -7.1,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 18000,
+     "projects": 6,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "kosovo",
+   "iso": "XK",
+   "name": "Kosovo",
+   "lat": 42.6,
+   "lon": 20.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "knowledge-for-life",
+     "beneficiaries": 6800,
+     "projects": 14,
+     "verified": true,
+     "note": "Schulcomputer, 100 EUR pro Rechner"
+    }
+   ]
+  },
+  {
+   "id": "bosnien",
+   "iso": "BA",
+   "name": "Bosnien und Herzegowina",
+   "lat": 44.0,
+   "lon": 17.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 5400,
+     "projects": 9,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "ukraine",
+   "iso": "UA",
+   "name": "Ukraine",
+   "lat": 49.0,
+   "lon": 31.2,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 130000,
+     "projects": 26,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "tuerkei",
+   "iso": "TR",
+   "name": "Tuerkei",
+   "lat": 39.2,
+   "lon": 35.2,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 74000,
+     "projects": 19,
+     "verified": false,
+     "note": "Erdbeben 2023"
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/tr-1.jpg",
+     "alt": "Krankenwagen und wartende Menschen",
+     "caption": "Erdbeben Tuerkei und Syrien, 2023"
+    },
+    {
+     "src": "assets/photos/tr-2.jpg",
+     "alt": "Helfende in Westen auf einer Strasse",
+     "caption": "Erdbeben Tuerkei und Syrien, 2023"
+    }
+   ]
+  },
+  {
+   "id": "syrien",
+   "iso": "SY",
+   "name": "Syrien",
+   "lat": 35.0,
+   "lon": 38.5,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 57000,
+     "projects": 15,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "libanon",
+   "iso": "LB",
+   "name": "Libanon",
+   "lat": 33.9,
+   "lon": 35.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 12000,
+     "projects": 10,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "jordanien",
+   "iso": "JO",
+   "name": "Jordanien",
+   "lat": 31.3,
+   "lon": 36.5,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "orphan-care",
+     "beneficiaries": 12500,
+     "projects": 5,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "jemen",
+   "iso": "YE",
+   "name": "Jemen",
+   "lat": 15.6,
+   "lon": 47.5,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "food-security",
+     "beneficiaries": 36000,
+     "projects": 12,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "afghanistan",
+   "iso": "AF",
+   "name": "Afghanistan",
+   "lat": 33.9,
+   "lon": 66.5,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "food-security",
+     "beneficiaries": 44000,
+     "projects": 17,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "bangladesch",
+   "iso": "BD",
+   "name": "Bangladesch",
+   "lat": 23.9,
+   "lon": 90.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 67000,
+     "projects": 21,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "indien",
+   "iso": "IN",
+   "name": "Indien",
+   "lat": 22.5,
+   "lon": 78.5,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "gift-of-sight",
+     "beneficiaries": 76000,
+     "projects": 34,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "nepal",
+   "iso": "NP",
+   "name": "Nepal",
+   "lat": 28.2,
+   "lon": 84.1,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 23000,
+     "projects": 9,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "sri-lanka",
+   "iso": "LK",
+   "name": "Sri Lanka",
+   "lat": 7.9,
+   "lon": 80.8,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 9800,
+     "projects": 12,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "indonesien",
+   "iso": "ID",
+   "name": "Indonesien",
+   "lat": -2.0,
+   "lon": 113.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 39000,
+     "projects": 14,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "malaysia",
+   "iso": "MY",
+   "name": "Malaysia",
+   "lat": 3.5,
+   "lon": 102.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 7600,
+     "projects": 18,
+     "verified": true,
+     "note": "Familienunterstuetzung, 250 EUR monatlich"
+    }
+   ]
+  },
+  {
+   "id": "philippinen",
+   "iso": "PH",
+   "name": "Philippinen",
+   "lat": 15.5,
+   "lon": 120.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 28000,
+     "projects": 11,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "kambodscha",
+   "iso": "KH",
+   "name": "Kambodscha",
+   "lat": 12.6,
+   "lon": 104.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 15000,
+     "projects": 19,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "guatemala",
+   "iso": "GT",
+   "name": "Guatemala",
+   "lat": 15.4,
+   "lon": -90.2,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "global-health",
+     "beneficiaries": 21000,
+     "projects": 13,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "honduras",
+   "iso": "HN",
+   "name": "Honduras",
+   "lat": 14.8,
+   "lon": -86.8,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "food-security",
+     "beneficiaries": 13000,
+     "projects": 8,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "belize",
+   "iso": "BZ",
+   "name": "Belize",
+   "lat": 17.2,
+   "lon": -88.7,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "knowledge-for-life",
+     "beneficiaries": 4100,
+     "projects": 6,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "haiti",
+   "iso": "HT",
+   "name": "Haiti",
+   "lat": 19.0,
+   "lon": -72.4,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 33000,
+     "projects": 10,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "guyana",
+   "iso": "GY",
+   "name": "Guyana",
+   "lat": 5.0,
+   "lon": -58.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "global-health",
+     "beneficiaries": 8700,
+     "projects": 7,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "suriname",
+   "iso": "SR",
+   "name": "Suriname",
+   "lat": 4.2,
+   "lon": -55.9,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 5100,
+     "projects": 6,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "mexiko",
+   "iso": "MX",
+   "name": "Mexiko",
+   "lat": 23.0,
+   "lon": -102.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 11000,
+     "projects": 9,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "usa",
+   "iso": "US",
+   "name": "USA",
+   "lat": 39.5,
+   "lon": -98.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 26000,
+     "projects": 41,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "kanada",
+   "iso": "CA",
+   "name": "Kanada",
+   "lat": 54.0,
+   "lon": -104.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 14000,
+     "projects": 22,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "uk",
+   "iso": "GB",
+   "name": "Vereinigtes Koenigreich",
+   "lat": 53.0,
+   "lon": -1.5,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 31000,
+     "projects": 55,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "australien",
+   "iso": "AU",
+   "name": "Australien",
+   "lat": -25.0,
+   "lon": 134.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "community-care",
+     "beneficiaries": 9200,
+     "projects": 16,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "fidschi",
+   "iso": "FJ",
+   "name": "Fidschi",
+   "lat": -17.8,
+   "lon": 178.0,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "disaster-relief",
+     "beneficiaries": 6300,
+     "projects": 5,
+     "verified": false
+    }
+   ]
+  },
+  {
+   "id": "tschad",
+   "iso": "TD",
+   "name": "Tschad",
+   "lat": 14.5,
+   "lon": 18.7,
+   "tier": "network",
+   "activities": [
+    {
+     "program": "water-for-life",
+     "beneficiaries": 24000,
+     "projects": 28,
+     "verified": false
+    },
+    {
+     "program": "food-security",
+     "beneficiaries": 17000,
+     "projects": 11,
+     "verified": false
+    }
+   ],
+   "photos": [
+    {
+     "src": "assets/photos/td-3.jpg",
+     "alt": "Helfende in Westen bei einer Verteilung",
+     "caption": "Tschad 2020"
+    },
+    {
+     "src": "assets/photos/td-2.jpg",
+     "alt": "Maenner mit Kanistern und Fahrraedern",
+     "caption": "Tschad 2020"
+    },
+    {
+     "src": "assets/photos/td-1.jpg",
+     "alt": "Person haelt ein Banner",
+     "caption": "Tschad 2020"
+    }
+   ]
+  }
+ ]
+}
