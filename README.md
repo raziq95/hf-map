@@ -4,6 +4,18 @@ Prototyp fuer den Website-Hero: eine Weltkarte aus Punktzeilen. Wo Humanity Firs
 arbeitet, "erwachen" die Punkte - je mehr Menschen erreicht wurden, desto groesser
 und dunkler. Die groessten Schwerpunkte kippen auf Gold.
 
+> **Die Zahlen in diesem Repo sind Platzhalter.** Sie dienen ausschliesslich dazu,
+> die Darstellung zu zeigen, und sind **keine** Kennzahlen von Humanity First.
+> Belegt sind nur die acht Programme, die elf Laender eigenstaendiger Arbeit von
+> Humanity First Deutschland und die in `data/locations.json` mit
+> `"verified": true` markierten Eintraege. Alles andere - insbesondere alle
+> Angaben zu erreichten Menschen und Projekten - ist erfunden und muss vor einem
+> Livegang ersetzt werden.
+>
+> Die Fotos in `assets/photos` gehoeren Humanity First und stammen von
+> humanityfirst.de. Sie liegen hier fuer den Prototypen; fuer jede andere
+> Verwendung gelten die Rechte des Urhebers.
+
 ## Starten
 
 ```bash
